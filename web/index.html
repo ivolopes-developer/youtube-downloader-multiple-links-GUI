@@ -36,7 +36,7 @@
 <body>
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100 fadeIn-animation">
+			<div class="wrap-login100 slideUp-animation">
 				<form class="login100-form">
 					<span class="login100-form-title p-b-26" style="margin-bottom: 40px">
 						Youtube Downloader
@@ -48,6 +48,17 @@
 							<div id="default-input" class="wrap-input100">
 								<input id="url0" class="input100" type="url" required />
 								<span id="placeholder-url0" class="focus-input100" data-placeholder="url"></span>
+							</div>
+
+							<div id="radio-buttons-0">
+								<label id="label-mp3-0" for="mp3-option-0" class="l-radio">
+									<input type="radio" id="mp3-option-0" name="selector-0" tabindex="1" checked>
+									<span>audio</span>
+								</label>
+								<label id="label-mp4-0" for="mp4-option-0" class="l-radio">
+									<input type="radio" id="mp4-option-0" name="selector-0" tabindex="2">
+									<span>audio & video</span>
+								</label>
 							</div>
 						</div>
 
@@ -63,25 +74,11 @@
 						<a href="https://www.youtube.com/watch?v=RwvC58OGAME" target="_blank">Youtube URLs</a>
 					</div>
 
-					<div id="radioButtons" style="margin-top: 30px">
-						<div class="form-check">
-							<input type="radio" name="mp3" id="mp3-radio-btn" checked />
-							<label class="form-check-label" for="mp3-radio-btn">
-								audio
-							</label>
-						</div>
-						<div class="form-check">
-							<input type="radio" name="mp3" id="mp4-radio-btn" />
-							<label class="form-check-label" for="mp4-radio-btn">
-								audio + video
-							</label>
-						</div>
-					</div>
-
-					<div class="container-login100-form-btn" style="margin-top: 40px">
+					<div class="container-login100-form-btn" style="margin-top: 100px">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button type="button" class="login100-form-btn" onclick="validateURLs()">
+							<button id="start-download-btn" type="button" class="login100-form-btn"
+								onclick="validateURLs()">
 								START DOWNLOAD
 							</button>
 						</div>

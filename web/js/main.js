@@ -8,15 +8,14 @@ const url_fields_list = [0];
 
     /*==================================================================
     [ Focus input ]*/
-    $(".input100").each($.fn.hasValue = function(){
-        $(this).on('blur', function(){
-            if($(this).val().trim() != "") {
+    $(".input100").each($.fn.hasValue = function () {
+        $(this).on('blur', function () {
+            if ($(this).val().trim() != "") {
                 $(this).addClass('has-val');
-            }
-            else {
+            } else {
                 $(this).removeClass('has-val');
             }
-        })    
+        })
     })
 })(jQuery);
 
@@ -28,16 +27,26 @@ function createUrlField() {
     const last_element = url_fields_list[url_fields_list.length - 1]
 
     var elem1 = `<div id="row-url${last_element+1}" class="row fadeIn-animation">`;
-    var elem2 =     `<div id="col-url${last_element+1}" class="col">`;
-    var elem3 =         `<div id="input${last_element+1}" class="wrap-input100">`;
-    var elem4 =             `<input id="url${last_element+1}" class="input100" type="url" required>`;
-    var elem5 =             `<span id="placeholder-url${last_element+1}" class="focus-input100" data-placeholder="url"></span>`;
-    var elem6 =         '</div>';
-    var elem7 =     '</div>';
-    var elem8 =     `<div id="close-btn-url${last_element+1}" class="col-1 del-url-btn-col">`
-    var elem9 =         `<span class="fa fa-times del-url-btn" onclick=deleteURLField(${last_element+1})></span>`
-    var elem10 =    '</div>'
-    var elem11 ='</div>';
+    var elem2 = `<div id="col-url${last_element+1}" class="col">`;
+    var elem3 = `<div id="input${last_element+1}" class="wrap-input100">`;
+    var elem4 = `<input id="url${last_element+1}" class="input100" type="url" required>`;
+    var elem5 = `<span id="placeholder-url${last_element+1}" class="focus-input100" data-placeholder="url"></span>`;
+    var elem6 = '</div>';
+    var elem7 = '</div>';
+    var elem8 = `<div id="close-btn-url${last_element+1}" class="col-1 del-url-btn-col" onclick=deleteURLField(${last_element+1})>`
+    var elem9 = `<span class="fa fa-times del-url-btn"></span>`
+    var elem10 = '</div>'
+    var elem11 = '</div>';
+    var elem12 = `<div id="radio-buttons-${last_element+1}">`;
+    var elem13 = `<label id="label-mp3-${last_element+1}" for="mp3-option-${last_element+1}" class="l-radio">`;
+    var elem14 = `<input type="radio" id="mp3-option-${last_element+1}" name="selector-${last_element+1}" tabindex="1" checked>`;
+    var elem15 = `<span>audio</span>`;
+    var elem16 = `</label>`;
+    var elem17 = `<label id="label-mp4-${last_element+1}" for="mp4-option-${last_element+1}" class="l-radio">`;
+    var elem18 = `<input type="radio" id="mp4-option-${last_element+1}" name="selector-${last_element+1}" tabindex="2">`;
+    var elem19 = `<span>audio & video</span>`;
+    var elem20 = `</label>`;
+    var elem21 = `</div>`;
 
     $("#added-fields").append(elem1);
     $(`#row-url${last_element+1}`).append(elem2);
@@ -50,7 +59,16 @@ function createUrlField() {
     $(`#close-btn-url${last_element+1}`).append(elem9);
     $(`#row-url${last_element+1}`).append(elem10);
     $('#added-fields').append(elem11);
-
+    $("#added-fields").append(elem12);
+    $(`#radio-buttons-${last_element+1}`).append(elem13);
+    $(`#label-mp3-${last_element+1}`).append(elem14);
+    $(`#label-mp3-${last_element+1}`).append(elem15);
+    $(`#radio-buttons-${last_element+1}`).append(elem16);
+    $(`#radio-buttons-${last_element+1}`).append(elem17);
+    $(`#label-mp4-${last_element+1}`).append(elem18);
+    $(`#label-mp4-${last_element+1}`).append(elem19);
+    $(`#radio-buttons-${last_element+1}`).append(elem20);
+    $("#added-fields").append(elem21);
 
     // execute a jQuery function to verify if field has something writen
     $('.input100').hasValue();
@@ -62,6 +80,7 @@ function createUrlField() {
 
 function deleteURLField(urlField) {
     $(`#row-url${urlField}`).remove();
+    $(`#radio-buttons-${urlField}`).remove();
 
     const index = url_fields_list.indexOf(urlField);
     if (index > -1) {
@@ -75,6 +94,7 @@ function deleteURLField(urlField) {
     [ restart form ]*/
 
 eel.expose(restartForm);
+
 function restartForm() {
     document.getElementById('status-bar').style.display = "none";
     document.getElementById('status-bar-fill').style.width = "5%";
@@ -83,11 +103,13 @@ function restartForm() {
     //     fieldCounter--;
     // }
     for (let index = 0; index < url_fields_list.length; index++) {
-        if(url_fields_list[index] > 0){
+        if (url_fields_list[index] > 0) {
             $(`#row-url${url_fields_list[index]}`).remove();
+            $(`#radio-buttons-${url_fields_list[index]}`).remove();
         }
     }
     document.getElementById("url0").value = "";
+    document.getElementById('start-download-btn').disabled = false;
 }
 
 /*==================================================================
@@ -95,17 +117,17 @@ function restartForm() {
 
 function validateURLs() {
     var validURLs = 0;
-    
+
     var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 
     for (let index = 0; index < url_fields_list.length; index++) {
         url = document.getElementById(`url${url_fields_list[index]}`).value;
-        if(url.match(p)){
+        if (url.match(p)) {
             validURLs++;
         }
     }
 
-    if(validURLs == url_fields_list.length) {
+    if (validURLs == url_fields_list.length) {
         document.getElementById('validation-warning').style.display = "none";
         sendURLsToPython()
     } else {
@@ -117,24 +139,24 @@ function validateURLs() {
     [ Sendding url's to python script ]*/
 
 function sendURLsToPython() {
-    const urls = [];
     var radio = "";
 
-    if(document.getElementById('mp3-radio-btn').checked) {
-        //audio radio button is checked
-        radio = "mp3";
-    }else if(document.getElementById('mp4-radio-btn').checked) {
-        //audio + video radio button is checked
-        radio = "mp4";
-    }
-    
     for (let index = 0; index < url_fields_list.length; index++) {
-        urls[urls.length] = document.getElementById(`url${url_fields_list[index]}`).value;
+        url = document.getElementById(`url${url_fields_list[index]}`).value;
+        if (document.getElementById(`mp3-option-${url_fields_list[index]}`).checked) {
+            //audio radio button is checked
+            radio = "mp3";
+        } else if (document.getElementById(`mp4-option-${url_fields_list[index]}`).checked) {
+            //audio + video radio button is checked
+            radio = "mp4";
+        }
+        eel.getUrlAndRadio(url, radio)
     }
-    
+
+    document.getElementById('start-download-btn').disabled = true;
     document.getElementById('status-bar').style.display = "block";
-    eel.convertURLs(urls, radio);
-    
+    eel.convertURLs();
+
     scrollTo("status-bar")
 }
 
@@ -142,6 +164,7 @@ function sendURLsToPython() {
     [ ProgressBar Functions ]*/
 
 eel.expose(updateStatusBar);
+
 function updateStatusBar(value) {
     document.getElementById('status-bar-fill').style.width = `${value}%`;
 }
