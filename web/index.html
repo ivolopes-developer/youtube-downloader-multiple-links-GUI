@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Youtube Downloader</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!--===============================================================================================-->
+	<!-- REQUIRED FOR EEL -->
+	<script src="eel.js"></script>
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.png" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 fadeIn-animation">
+				<form class="login100-form">
+					<span class="login100-form-title p-b-26" style="margin-bottom: 40px">
+						Youtube Downloader
+						<p>*with multiple urls function*</p>
+					</span>
+
+					<div id="url-fields">
+						<div id="default-field">
+							<div id="default-input" class="wrap-input100">
+								<input id="url0" class="input100" type="url" required />
+								<span id="placeholder-url0" class="focus-input100" data-placeholder="url"></span>
+							</div>
+						</div>
+
+						<div id="added-fields"></div>
+					</div>
+
+					<div class="add-url-container">
+						<span class="add-url-btn" onclick="createUrlField()">add URL</span>
+					</div>
+
+					<div id="validation-warning" class="alert alert-warning" role="alert">
+						All fields must have valid
+						<a href="https://www.youtube.com/watch?v=RwvC58OGAME" target="_blank">Youtube URLs</a>
+					</div>
+
+					<div id="radioButtons" style="margin-top: 30px">
+						<div class="form-check">
+							<input type="radio" name="mp3" id="mp3-radio-btn" checked />
+							<label class="form-check-label" for="mp3-radio-btn">
+								audio
+							</label>
+						</div>
+						<div class="form-check">
+							<input type="radio" name="mp3" id="mp4-radio-btn" />
+							<label class="form-check-label" for="mp4-radio-btn">
+								audio + video
+							</label>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn" style="margin-top: 40px">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="button" class="login100-form-btn" onclick="validateURLs()">
+								START DOWNLOAD
+							</button>
+						</div>
+					</div>
+
+					<div id="status-bar" class="progress" style="margin-top: 50px">
+						<div id="status-bar-fill"
+							class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+							role="progressbar" style="width: 5%" aria-valuenow="0" aria-valuemin="0"
+							aria-valuemax="100"></div>
+						<br />
+						<p>Downloading files... Please wait</p>
+						<br />
+					</div>
+
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							made in Rio Maior, Portugal.
+							<br />
+							<span style="font-weight: bold">by:
+								<a href="https://ivolopes-developer.github.io/MyResume/" target="_blank">Ivo
+									Lopes</a></span>
+						</span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	<!--===============================================================================================-->
+</body>
+
+</html>
