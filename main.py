@@ -1,4 +1,3 @@
-import youtube_dl
 import time
 import eel
 import os
@@ -15,6 +14,17 @@ fileExtensions = []
 def getUrlAndRadio(url, fileExtension):
     urls.append(url)
     fileExtensions.append(fileExtension)
+
+
+@eel.expose
+def getUrlTitle(url):
+    try:
+        yt = YouTube(url)
+        title = yt.title
+        # returning title to JS to set on the field
+        eel.setUrlTitle(title)
+    except:
+        print("URL does not match the REGEX conditions, nothing will happen")
 
 
 def openDownloads():
@@ -34,25 +44,30 @@ def convertURLs():
 
     for url, fileExtension in zip(urls, fileExtensions):
         if fileExtension == "mp3":
-            print(f"\nStarting converting the {convert_counter} URL...")
-            video_info = youtube_dl.YoutubeDL().extract_info(
-                url=url, download=False
-            )
-            filename = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\{video_info['title']}.{fileExtension}"
+            yt = YouTube(url)
 
-            options = {
-                'format': 'bestaudio/best',
-                'keepvideo': False,
-                'outtmpl': filename,
-            }
-
-            with youtube_dl.YoutubeDL(options) as ydl:
-                ydl.download([video_info['webpage_url']])
-
+            # Showing details
             print(
-                f"URL {convert_counter} -> download complete... | {filename}")
+                f"\nStarting converting the {convert_counter} URL to {str(fileExtension).upper()}")
+            print("Title: ", yt.title)
+            print("Number of views: ", yt.views)
+            print("Length of video: ", yt.length)
+            print("Rating of video: ", yt.rating)
 
-            # updating status bar
+            filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
+
+            # Getting the highest resolution possible
+            audio = yt.streams.filter(only_audio=True).first()
+
+            # Starting download
+            print("Downloading...")
+            out_file = audio.download(output_path=filepath)
+            # saving the file
+            base, ext = os.path.splitext(out_file)
+            new_file = base + f".{fileExtension}"
+            os.rename(out_file, new_file)
+            print(f"Audio from: {yt.title} was successfully downloaded!")
+
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)
 
             convert_counter += 1
@@ -62,7 +77,8 @@ def convertURLs():
             yt = YouTube(url)
 
             # Showing details
-            print(f"\nStarting converting the {convert_counter} URL...")
+            print(
+                f"\nStarting converting the {convert_counter} URL to {str(fileExtension).upper()}")
             print("Title: ", yt.title)
             print("Number of views: ", yt.views)
             print("Length of video: ", yt.length)
@@ -71,12 +87,12 @@ def convertURLs():
             filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
 
             # Getting the highest resolution possible
-            ys = yt.streams.get_highest_resolution()
+            video = yt.streams.get_highest_resolution()
 
             # Starting download
             print("Downloading...")
-            ys.download(filepath)
-            print("Download completed!!")
+            video.download(filepath)
+            print(f"The video: {yt.title} was successfully downloaded!")
 
             # updating status bar
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)

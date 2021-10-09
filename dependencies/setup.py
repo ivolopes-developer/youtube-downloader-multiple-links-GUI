@@ -32,14 +32,6 @@ def verifyDependencies():
     except:
         pass
     try:
-        installDependencie("youtube_dl")
-    except:
-        pass
-    try:
-        installDependencie("youtube_dl")
-    except:
-        pass
-    try:
         installDependencie("pytube")
     except:
         pass

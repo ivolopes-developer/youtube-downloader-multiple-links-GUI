@@ -1,13 +1,16 @@
 /*==================================================================
     [ Some vars ]*/
+
 var fieldCounter = 0;
+var last_url_number = null;
 const url_fields_list = [0];
+
+/*==================================================================
+    [ Focus input ]*/
 
 (function ($) {
     "use strict";
 
-    /*==================================================================
-    [ Focus input ]*/
     $(".input100").each($.fn.hasValue = function () {
         $(this).on('blur', function () {
             if ($(this).val().trim() != "") {
@@ -19,6 +22,22 @@ const url_fields_list = [0];
     })
 })(jQuery);
 
+/*==================================================================
+    [ getting and setting title from youtube video when input lost focus]*/
+
+function getUrlTitle(input_id) {
+    var url_number = input_id.substr(input_id.length - 1);
+    var url_value = $(`#url${url_number}`).val();
+    last_url_number = url_number;
+
+    title = eel.getUrlTitle(url_value);
+}
+
+eel.expose(setUrlTitle)
+
+function setUrlTitle(title) {
+    $(`#placeholder-url${last_url_number}`).attr("data-placeholder", title);
+}
 
 /*==================================================================
     [ Adding/deleting url fields ]*/
@@ -30,7 +49,7 @@ function createUrlField() {
     var elem1 = `<div id="row-url${last_element+1}" class="row fadeIn-animation">`;
     var elem2 = `<div id="col-url${last_element+1}" class="col">`;
     var elem3 = `<div id="input${last_element+1}" class="wrap-input100">`;
-    var elem4 = `<input id="url${last_element+1}" class="input100" type="url" required>`;
+    var elem4 = `<input id="url${last_element+1}" class="input100" onfocusout="getUrlTitle(this.id)" type="url" required>`;
     var elem5 = `<span id="placeholder-url${last_element+1}" class="focus-input100" data-placeholder="url"></span>`;
     var elem6 = '</div>';
     var elem7 = '</div>';
@@ -38,6 +57,7 @@ function createUrlField() {
     var elem9 = `<span class="fa fa-times del-url-btn"></span>`
     var elem10 = '</div>'
     var elem11 = '</div>';
+
     //RADIO BUTTONS --------------------------------------
     var elem12 = `<div id="radio-buttons-${last_element+1}" class="fadeIn-animation">`;
     var elem13 = `<label id="label-mp3-${last_element+1}" title=".mp3" for="mp3-option-${last_element+1}" class="l-radio">`;

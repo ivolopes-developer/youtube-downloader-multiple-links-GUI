@@ -260,6 +260,7 @@ iframe {
   color: #333333;
   line-height: 1.2;
   text-align: center;
+  margin-bottom: 80px
 }
 
 .login100-form-title i {
@@ -274,7 +275,7 @@ iframe {
   position: relative;
   border-bottom: 2px solid #adadad;
   margin-bottom: 5px;
-  margin-top: 12px;
+  margin-top: 30px;
 }
 
 .input100 {
@@ -647,6 +648,7 @@ iframe {
   align-items: center;
   cursor: pointer;
   transition: 0.3s;
+  margin-top: 20px;
 }
 
 .del-url-btn-col:hover {

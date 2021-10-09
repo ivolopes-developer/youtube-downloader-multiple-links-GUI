@@ -38,7 +38,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100 slideUp-animation">
 				<form class="login100-form">
-					<span class="login100-form-title p-b-26" style="margin-bottom: 40px">
+					<span class="login100-form-title p-b-26">
 						Youtube Downloader
 						<p>*with multiple urls function*</p>
 					</span>
@@ -46,7 +46,8 @@
 					<div id="url-fields">
 						<div id="default-field">
 							<div id="default-input" class="wrap-input100">
-								<input id="url0" class="input100" type="url" required />
+								<input id="url0" class="input100" onfocusout="getUrlTitle(this.id)" type="url"
+									required />
 								<span id="placeholder-url0" class="focus-input100" data-placeholder="url"></span>
 							</div>
 
@@ -97,7 +98,7 @@
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							made in Serradinha, Rio Maior, Portugal.
+							made in Rio Maior, Portugal.
 							<br />
 							<span style="font-weight: bold">by:
 								<a href="https://ivolopes-developer.github.io/MyResume/" target="_blank">Ivo
