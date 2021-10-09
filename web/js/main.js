@@ -159,7 +159,7 @@ function validateURLs() {
 
     if (validURLs == url_fields_list.length) {
         document.getElementById('validation-warning').style.display = "none";
-        //sendURLsToPython()
+        sendURLsToPython()
     } else {
         document.getElementById('validation-warning').style.display = "block";
     }
