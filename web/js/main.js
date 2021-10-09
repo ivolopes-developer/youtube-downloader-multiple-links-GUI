@@ -34,17 +34,17 @@ function createUrlField() {
     var elem5 = `<span id="placeholder-url${last_element+1}" class="focus-input100" data-placeholder="url"></span>`;
     var elem6 = '</div>';
     var elem7 = '</div>';
-    var elem8 = `<div id="close-btn-url${last_element+1}" class="col-1 del-url-btn-col" onclick=deleteURLField(${last_element+1})>`
+    var elem8 = `<div id="close-btn-url${last_element+1}" title="Close this URL" class="col-1 del-url-btn-col" onclick=deleteURLField(${last_element+1})>`
     var elem9 = `<span class="fa fa-times del-url-btn"></span>`
     var elem10 = '</div>'
     var elem11 = '</div>';
     //RADIO BUTTONS --------------------------------------
     var elem12 = `<div id="radio-buttons-${last_element+1}" class="fadeIn-animation">`;
-    var elem13 = `<label id="label-mp3-${last_element+1}" for="mp3-option-${last_element+1}" class="l-radio">`;
+    var elem13 = `<label id="label-mp3-${last_element+1}" title=".mp3" for="mp3-option-${last_element+1}" class="l-radio">`;
     var elem14 = `<input type="radio" id="mp3-option-${last_element+1}" name="selector-${last_element+1}" tabindex="1" checked>`;
     var elem15 = `<span>audio</span>`;
     var elem16 = `</label>`;
-    var elem17 = `<label id="label-mp4-${last_element+1}" for="mp4-option-${last_element+1}" class="l-radio l-radio2">`;
+    var elem17 = `<label id="label-mp4-${last_element+1}" title=".mp4" for="mp4-option-${last_element+1}" class="l-radio l-radio2">`;
     var elem18 = `<input type="radio" id="mp4-option-${last_element+1}" name="selector-${last_element+1}" tabindex="2">`;
     var elem19 = `<span>audio & video</span>`;
     var elem20 = `</label>`;
