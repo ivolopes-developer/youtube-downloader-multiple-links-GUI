@@ -43,6 +43,9 @@ def convertURLs():
     valueOfEachBarUpdate = (100/len(urls))
 
     for url, fileExtension in zip(urls, fileExtensions):
+        print(urls)
+        print(fileExtensions)
+
         if fileExtension == "mp3":
             yt = YouTube(url)
 

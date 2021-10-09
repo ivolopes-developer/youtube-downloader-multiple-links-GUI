@@ -3,7 +3,8 @@
 
 var fieldCounter = 0;
 var last_url_number = null;
-const url_fields_list = [0];
+var url_fields_list = [0];
+var last_element = 0;
 
 /*==================================================================
     [ Focus input ]*/
@@ -30,7 +31,7 @@ function getUrlTitle(input_id) {
     var url_value = $(`#url${url_number}`).val();
     last_url_number = url_number;
 
-    title = eel.getUrlTitle(url_value);
+    eel.getUrlTitle(url_value);
 }
 
 eel.expose(setUrlTitle)
@@ -43,7 +44,7 @@ function setUrlTitle(title) {
     [ Adding/deleting url fields ]*/
 
 function createUrlField() {
-    const last_element = url_fields_list[url_fields_list.length - 1]
+    last_element = url_fields_list[url_fields_list.length - 1]
 
     //URL FIRLD + DELETE FIELD BUTTON --------------------------------------
     var elem1 = `<div id="row-url${last_element+1}" class="row fadeIn-animation">`;
@@ -98,13 +99,15 @@ function createUrlField() {
     fieldCounter++;
 
     url_fields_list[url_fields_list.length] = last_element + 1;
+
+    last_element++;
 }
 
 function deleteURLField(urlField) {
     $(`#row-url${urlField}`).remove();
     $(`#radio-buttons-${urlField}`).remove();
 
-    const index = url_fields_list.indexOf(urlField);
+    var index = url_fields_list.indexOf(urlField);
     if (index > -1) {
         url_fields_list.splice(index, 1);
     }
@@ -130,8 +133,13 @@ function restartForm() {
             $(`#radio-buttons-${url_fields_list[index]}`).remove();
         }
     }
-    document.getElementById("url0").value = "";
-    document.getElementById('start-download-btn').disabled = false;
+
+    fieldCounter = 0;
+    url_fields_list = [0];
+    last_element = 0;
+
+    $("#url0").val("");
+    $("#start-download-btn").attr("disabled", false);
 }
 
 /*==================================================================
@@ -151,7 +159,7 @@ function validateURLs() {
 
     if (validURLs == url_fields_list.length) {
         document.getElementById('validation-warning').style.display = "none";
-        sendURLsToPython()
+        //sendURLsToPython()
     } else {
         document.getElementById('validation-warning').style.display = "block";
     }
@@ -175,7 +183,7 @@ function sendURLsToPython() {
         eel.getUrlAndRadio(url, radio)
     }
 
-    document.getElementById('start-download-btn').disabled = true;
+    $("#start-download-btn").attr("disabled", true);
     document.getElementById('status-bar').style.display = "block";
     eel.convertURLs();
 
