@@ -16,6 +16,11 @@ def getUrlAndRadio(url, fileExtension):
     fileExtensions.append(fileExtension)
 
 
+def clearLists():
+    urls.clear()
+    fileExtensions.clear()
+
+
 @eel.expose
 def getUrlTitle(url):
     try:
@@ -25,6 +30,7 @@ def getUrlTitle(url):
         eel.setUrlTitle(title)
     except:
         print("URL does not match the REGEX conditions, nothing will happen")
+        eel.setUrlTitle("url")
 
 
 def openDownloads():
@@ -42,9 +48,12 @@ def convertURLs():
 
     valueOfEachBarUpdate = (100/len(urls))
 
+    print("\tURLs LIST -> " + str(urls))
+    print("\tFILE EXTENSIONs LIST -> " + str(fileExtensions))
+
     for url, fileExtension in zip(urls, fileExtensions):
-        print(urls)
-        print(fileExtensions)
+        print("\n\tURL TO CONVERT -> " + url)
+        print("\tFILE EXTENSION OF URL THAT'LL BE CONVERTED -> " + fileExtension)
 
         if fileExtension == "mp3":
             yt = YouTube(url)
@@ -55,7 +64,6 @@ def convertURLs():
             print("Title: ", yt.title)
             print("Number of views: ", yt.views)
             print("Length of video: ", yt.length)
-            print("Rating of video: ", yt.rating)
 
             filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
 
@@ -64,12 +72,18 @@ def convertURLs():
 
             # Starting download
             print("Downloading...")
-            out_file = audio.download(output_path=filepath)
-            # saving the file
-            base, ext = os.path.splitext(out_file)
-            new_file = base + f".{fileExtension}"
-            os.rename(out_file, new_file)
-            print(f"Audio from: {yt.title} was successfully downloaded!")
+
+            try:
+                out_file = audio.download(output_path=filepath)
+                # saving the file
+                base, ext = os.path.splitext(out_file)
+                new_file = base + f".{fileExtension}"
+                os.rename(out_file, new_file)
+
+                print(f"Audio from: {yt.title} was successfully downloaded!")
+
+            except:
+                print("\n\t[ERROR] Can't save an existing file [ERROR]\n")
 
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)
 
@@ -85,7 +99,6 @@ def convertURLs():
             print("Title: ", yt.title)
             print("Number of views: ", yt.views)
             print("Length of video: ", yt.length)
-            print("Rating of video: ", yt.rating)
 
             filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
 
@@ -94,8 +107,12 @@ def convertURLs():
 
             # Starting download
             print("Downloading...")
-            video.download(filepath)
-            print(f"The video: {yt.title} was successfully downloaded!")
+            try:
+                video.download(filepath)
+                print(f"The video: {yt.title} was successfully downloaded!")
+
+            except:
+                print("\n\t[ERROR] Can't save an existing file [ERROR]\n")
 
             # updating status bar
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)
@@ -105,6 +122,9 @@ def convertURLs():
 
     toaster.show_toast("All Done!", f"Click to see your downloaded files",
                        icon_path="web/images/icons/notification-icon.ico/", duration=10, threaded=True, callback_on_click=openDownloads)
+
+    # clear urls and fileExtensions lists in order to do the next convertion
+    clearLists()
 
     # reset the page without reload
     eel.restartForm()

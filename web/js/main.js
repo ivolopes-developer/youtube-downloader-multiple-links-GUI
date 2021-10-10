@@ -29,6 +29,11 @@ var last_element = 0;
 function getUrlTitle(input_id) {
     var url_number = input_id.substr(input_id.length - 1);
     var url_value = $(`#url${url_number}`).val();
+
+    if (url_value == "") {
+        $(`#placeholder-url${url_number}`).attr("data-placeholder", "url");
+    }
+
     last_url_number = url_number;
 
     eel.getUrlTitle(url_value);
@@ -139,6 +144,7 @@ function restartForm() {
     last_element = 0;
 
     $("#url0").val("");
+    $(`#placeholder-url0`).attr("data-placeholder", "url");
     $("#start-download-btn").attr("disabled", false);
 }
 
