@@ -8,29 +8,32 @@ from pytube import YouTube
 
 urls = []
 fileExtensions = []
+urlNumbers = []
 
 
 @eel.expose
-def getUrlAndRadio(url, fileExtension):
+def getUrlFieldInfo(url, fileExtension, url_number):
     urls.append(url)
     fileExtensions.append(fileExtension)
+    urlNumbers.append(url_number)
 
 
 def clearLists():
     urls.clear()
     fileExtensions.clear()
+    urlNumbers.clear()
 
 
 @eel.expose
-def getUrlTitle(url):
+def getUrlTitle(url, url_number):
     try:
         yt = YouTube(url)
         title = yt.title
         # returning title to JS to set on the field
-        eel.setUrlTitle(title)
+        eel.setUrlTitle(title, url_number)
     except:
         print("URL does not match the REGEX conditions, nothing will happen")
-        eel.setUrlTitle("url")
+        eel.hideUrlTitle(url_number)
 
 
 def openDownloads():
@@ -48,12 +51,14 @@ def convertURLs():
 
     valueOfEachBarUpdate = (100/len(urls))
 
+    print("\n\tURL NUMBERS LIST -> " + str(urlNumbers))
     print("\tURLs LIST -> " + str(urls))
     print("\tFILE EXTENSIONs LIST -> " + str(fileExtensions))
 
-    for url, fileExtension in zip(urls, fileExtensions):
-        print("\n\tURL TO CONVERT -> " + url)
-        print("\tFILE EXTENSION OF URL THAT'LL BE CONVERTED -> " + fileExtension)
+    for url, fileExtension, url_number in zip(urls, fileExtensions, urlNumbers):
+        print("\n\tURL NUMBER -> " + str(url_number))
+        print("\tURL TO CONVERT -> " + str(url))
+        print("\tFILE EXTENSION OF URL THAT'LL BE CONVERTED -> " + str(fileExtension))
 
         if fileExtension == "mp3":
             yt = YouTube(url)
@@ -120,6 +125,8 @@ def convertURLs():
             convert_counter += 1
             time.sleep(2)
 
+        eel.setConvertionCompleteIcon(url_number)
+
     toaster.show_toast("All Done!", f"Click to see your downloaded files",
                        icon_path="web/images/icons/notification-icon.ico/", duration=10, threaded=True, callback_on_click=openDownloads)
 
@@ -127,6 +134,7 @@ def convertURLs():
     clearLists()
 
     # reset the page without reload
+    time.sleep(3)
     eel.restartForm()
 
 

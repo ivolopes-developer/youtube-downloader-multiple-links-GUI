@@ -46,9 +46,19 @@
 					<div id="url-fields">
 						<div id="default-field">
 							<div id="default-input" class="wrap-input100">
+								<div id="url0-title-block" class="row">
+									<div class="col">
+										<input id="url0-title" class="url-title" style="display: none;"
+											readonly="readonly" value="">
+									</div>
+									<div class="col-1 url-convertion-status">
+										<span id="url0-status-icon" class="fa fa-check" style="display: none;"></span>
+									</div>
+								</div>
 								<input id="url0" class="input100" onfocusout="getUrlTitle(this.id)" type="url"
 									required />
-								<span id="placeholder-url0" class="focus-input100" data-placeholder="url"></span>
+								<span id="placeholder-url0" class="focus-input100" data-placeholder="url"
+									style="display: block;"></span>
 							</div>
 
 							<div id="radio-buttons-0">
