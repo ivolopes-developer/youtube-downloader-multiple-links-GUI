@@ -1,10 +1,9 @@
-import time
-import eel
 import os
-from launchGUI import launchGUI
-from win10toast_click import ToastNotifier
-from pathlib import Path
+import eel
 from pytube import YouTube
+from pathlib import Path
+from win10toast_click import ToastNotifier
+from launchGUI import launchGUI
 
 urls = []
 fileExtensions = []
@@ -93,7 +92,7 @@ def convertURLs():
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)
 
             convert_counter += 1
-            time.sleep(2)
+            eel.sleep(2.0)
 
         elif fileExtension == "mp4":
             yt = YouTube(url)
@@ -123,7 +122,7 @@ def convertURLs():
             eel.updateStatusBar(valueOfEachBarUpdate*convert_counter)
 
             convert_counter += 1
-            time.sleep(2)
+            eel.sleep(2.0)
 
         eel.setConvertionCompleteIcon(url_number)
 
@@ -134,7 +133,7 @@ def convertURLs():
     clearLists()
 
     # reset the page without reload
-    time.sleep(3)
+    eel.sleep(3.0)
     eel.restartForm()
 
 

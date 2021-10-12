@@ -25,7 +25,7 @@ def uninstallDependencies():
     except:
         pass
     try:
-        uninstallDependencie("Eel")
+        uninstallDependencie("eel")
     except:
         pass
     try:
@@ -56,7 +56,7 @@ def installDependencies():
     except:
         pass
     try:
-        installDependencie("Eel")
+        installDependencie("eel")
     except:
         pass
     try:
