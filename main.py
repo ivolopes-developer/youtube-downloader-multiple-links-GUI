@@ -127,7 +127,8 @@ def convertURLs():
         eel.setConvertionCompleteIcon(url_number)
 
     toaster.show_toast("All Done!", f"Click to see your downloaded files",
-                       icon_path="web/images/icons/notification-icon.ico/", duration=10, threaded=True, callback_on_click=openDownloads)
+                       icon_path="web/images/icons/notification-icon.ico/", duration=10, threaded=True,
+                       callback_on_click=openDownloads)
 
     # clear urls and fileExtensions lists in order to do the next convertion
     clearLists()
