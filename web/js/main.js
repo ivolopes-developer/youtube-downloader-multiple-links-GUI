@@ -70,7 +70,7 @@ function createUrlField() {
     last_element = url_fields_list[url_fields_list.length - 1]
 
     //URL FIELD BLOCK --------------------------------------
-    var elem0 = `<div id="field-block-url${last_element+1}">`
+    var elem0 = `<div id="field-block-url${last_element+1}" class="fadeIn-animation">`
     var elem1 = `<div id="row-url${last_element+1}" class="row">`;
     var elem2 = `<div id="col-url${last_element+1}" class="col">`;
     var elem3 = `<div id="input${last_element+1}" class="wrap-input100">`;
