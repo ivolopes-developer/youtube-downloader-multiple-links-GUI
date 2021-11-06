@@ -4,6 +4,7 @@ from pytube import YouTube
 from pathlib import Path
 from win10toast_click import ToastNotifier
 from launchGUI import launchGUI
+from threading import Thread
 
 urls = []
 fileExtensions = []
@@ -59,17 +60,18 @@ def convertURLs():
         print("\tURL TO CONVERT -> " + str(url))
         print("\tFILE EXTENSION OF URL THAT'LL BE CONVERTED -> " + str(fileExtension))
 
+        yt = YouTube(url)
+
+        # Showing details
+        print(
+            f"\nStarting converting the {convert_counter} URL to {str(fileExtension).upper()}")
+        print("Title: ", yt.title)
+        print("Number of views: ", yt.views)
+        print("Length of video: ", yt.length)
+
+        filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
+
         if fileExtension == "mp3":
-            yt = YouTube(url)
-
-            # Showing details
-            print(
-                f"\nStarting converting the {convert_counter} URL to {str(fileExtension).upper()}")
-            print("Title: ", yt.title)
-            print("Number of views: ", yt.views)
-            print("Length of video: ", yt.length)
-
-            filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
 
             # Getting the highest resolution possible
             audio = yt.streams.filter(only_audio=True).first()
@@ -95,16 +97,6 @@ def convertURLs():
             eel.sleep(2.0)
 
         elif fileExtension == "mp4":
-            yt = YouTube(url)
-
-            # Showing details
-            print(
-                f"\nStarting converting the {convert_counter} URL to {str(fileExtension).upper()}")
-            print("Title: ", yt.title)
-            print("Number of views: ", yt.views)
-            print("Length of video: ", yt.length)
-
-            filepath = f"{downloads_path}\Youtube to {str(fileExtension).upper()} Downloader\\"
 
             # Getting the highest resolution possible
             video = yt.streams.get_highest_resolution()
